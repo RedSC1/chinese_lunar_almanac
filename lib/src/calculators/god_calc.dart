@@ -1,3 +1,15 @@
+/* ------------------------------------------------------------------
+ * 神煞计算逻辑参考了 Python 版的 cnlunar (https://github.com/OPN48/cnlunar)
+ * 测了下 2000-2026 年的数据，跟 cnlunar 算的完全一致。
+ * 原作者能把这些古籍规则手工录入进去，是真牛逼，致敬一下🫡。
+ * * 不过原作代码里全是 List<String>，还带一堆交集并集之类的集合操作...
+ * 理论上性能表现不好，我就直接全改用自己写的 FastBitSet (32-bit chunk) 实现了。
+ * 月支查日支这种 A 类神煞，全部预计算成硬编码，理论性能好得多。
+ * * 另外看了一眼 cnlunar 的 Dart 实现版 (https://github.com/m11v/chinese_lunar_calendar)
+ * 估计是嫌神煞和宜忌逻辑太脏，直接没做这部分。
+ * 既然没人搞，那我来填坑吧。
+ * ------------------------------------------------------------------ */
+
 import '../data/god_grid_type_a.dart';
 import '../data/god_rules_type_b.dart';
 import '../data/god_rules_type_c.dart';
