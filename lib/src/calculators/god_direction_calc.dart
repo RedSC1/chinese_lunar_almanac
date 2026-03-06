@@ -81,6 +81,7 @@
  */
 
 import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
+import '../models/compass_direction.dart';
 
 /// 吉神方位 (God Directions)
 ///
@@ -93,32 +94,44 @@ import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
 class GodDirection {
   /// 喜神方位
   /// 口诀：甲己在艮(东北)，乙庚在乾(西北)，丙辛在坤(西南)，丁壬在离(正南)，戊癸在巽(东南)。
-  static String getXiShen(TianGan dayGan) {
-    const directions = ['东北', '西北', '西南', '正南', '东南'];
+  static CompassDirection getXiShen(TianGan dayGan) {
+    const directions = [
+      CompassDirection.northeast,
+      CompassDirection.northwest,
+      CompassDirection.southwest,
+      CompassDirection.south,
+      CompassDirection.southeast,
+    ];
     return directions[dayGan.index % 5];
   }
 
   /// 财神方位
   /// 口诀：甲乙东北是财神，丙丁向在西南寻，戊己正北坐方位，庚辛正东去安身，壬癸原来正南坐。
-  static String getCaiShen(TianGan dayGan) {
-    const directions = ['东北', '西南', '正北', '正东', '正南'];
+  static CompassDirection getCaiShen(TianGan dayGan) {
+    const directions = [
+      CompassDirection.northeast,
+      CompassDirection.southwest,
+      CompassDirection.north,
+      CompassDirection.east,
+      CompassDirection.south,
+    ];
     return directions[dayGan.index ~/ 2];
   }
 
   /// 福神方位 (采用民间通传版本，对标主流万年历 App)
   /// 口诀：甲乙东南是福神，丙丁正东是其真，戊北己南庚辛坤，壬在乾方癸在西。
-  static String getFuShen(TianGan dayGan) {
+  static CompassDirection getFuShen(TianGan dayGan) {
     const directions = [
-      '东南',
-      '东南',
-      '正东',
-      '正东',
-      '正北',
-      '正南',
-      '西南',
-      '西南',
-      '西北',
-      '正西',
+      CompassDirection.southeast,
+      CompassDirection.southeast,
+      CompassDirection.east,
+      CompassDirection.east,
+      CompassDirection.north,
+      CompassDirection.south,
+      CompassDirection.southwest,
+      CompassDirection.southwest,
+      CompassDirection.northwest,
+      CompassDirection.west,
     ];
     return directions[dayGan.index];
   }
@@ -128,52 +141,44 @@ class GodDirection {
   /// 白天（日出后）的贵人位。
   ///
   /// “甲戊庚牛羊，乙己鼠猴乡，丙丁猪鸡位，壬癸兔蛇藏，六辛逢虎马，此是贵人方。”
-  static String getYangGui(TianGan dayGan) {
-    switch (dayGan) {
-      case TianGan.jia:
-      case TianGan.wu:
-      case TianGan.geng:
-        return '东北'; // 丑位 (牛)
-      case TianGan.yi:
-      case TianGan.ji:
-        return '正北'; // 子位 (鼠)
-      case TianGan.bing:
-      case TianGan.ding:
-        return '西北'; // 亥位 (猪)
-      case TianGan.xin:
-        return '正南'; // 午位 (马)
-      case TianGan.ren:
-      case TianGan.gui:
-        return '正东'; // 卯位 (兔)
-    }
+  static CompassDirection getYangGui(TianGan dayGan) {
+    const directions = [
+      CompassDirection.northeast, // 0: 甲 (丑)
+      CompassDirection.north, // 1: 乙 (子)
+      CompassDirection.northwest, // 2: 丙 (亥)
+      CompassDirection.northwest, // 3: 丁 (亥)
+      CompassDirection.northeast, // 4: 戊 (丑)
+      CompassDirection.north, // 5: 己 (子)
+      CompassDirection.northeast, // 6: 庚 (丑)
+      CompassDirection.south, // 7: 辛 (午)
+      CompassDirection.east, // 8: 壬 (卯)
+      CompassDirection.east, // 9: 癸 (卯)
+    ];
+    return directions[dayGan.index];
   }
 
   /// 阴贵神方位 (等同于紫微斗数：天钺星方位)
   /// 黑夜（日落后）的贵人位。
   ///
   /// “甲戊庚牛羊，乙己鼠猴乡，丙丁猪鸡位，壬癸兔蛇藏，六辛逢虎马，此是贵人方。”
-  static String getYinGui(TianGan dayGan) {
-    switch (dayGan) {
-      case TianGan.jia:
-      case TianGan.wu:
-      case TianGan.geng:
-        return '西南'; // 未位 (羊)
-      case TianGan.yi:
-      case TianGan.ji:
-        return '西南'; // 申位 (猴) (注：申位位于西南偏西)
-      case TianGan.bing:
-      case TianGan.ding:
-        return '正西'; // 酉位 (鸡)
-      case TianGan.xin:
-        return '东北'; // 寅位 (虎)
-      case TianGan.ren:
-      case TianGan.gui:
-        return '东南'; // 巳位 (蛇)
-    }
+  static CompassDirection getYinGui(TianGan dayGan) {
+    const directions = [
+      CompassDirection.southwest, // 0: 甲 (未)
+      CompassDirection.southwest, // 1: 乙 (申)
+      CompassDirection.west, // 2: 丙 (酉)
+      CompassDirection.west, // 3: 丁 (酉)
+      CompassDirection.southwest, // 4: 戊 (未)
+      CompassDirection.southwest, // 5: 己 (申)
+      CompassDirection.southwest, // 6: 庚 (未)
+      CompassDirection.northeast, // 7: 辛 (寅)
+      CompassDirection.southeast, // 8: 壬 (巳)
+      CompassDirection.southeast, // 9: 癸 (巳)
+    ];
+    return directions[dayGan.index];
   }
 
   /// 获取所有方位的综合描述
-  static Map<String, String> getAll(TianGan dayGan) {
+  static Map<String, CompassDirection> getAll(TianGan dayGan) {
     return {
       '喜神': getXiShen(dayGan),
       '福神': getFuShen(dayGan),

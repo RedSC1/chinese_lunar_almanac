@@ -36,10 +36,14 @@ class FastBitSet extends Object with IterableMixin<int> {
   factory FastBitSet.fromIndices(int bitLength, Iterable<int> activeIndices) {
     var bitSet = FastBitSet(bitLength);
     for (var index in activeIndices) {
-      bitSet[index] = true;
+      bitSet.add(index);
     }
     return bitSet;
   }
+
+  /// 从底层的 Chunk 数组直接构建（性能最高，适合预计算好的硬编码数据）
+  FastBitSet.fromChunks(this._bitCapacity, List<int> chunks)
+    : _chunks = List<int>.from(chunks);
 
   /// 添加（点亮）某个索引的标志位 -> 对应 O(1) 的 `|` 运算
   void add(int index) {

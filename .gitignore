@@ -22,3 +22,7 @@ test_*.dart
 verify_*.dart
 /tmp/
 *.log
+# Reference and Dev tools
+cnlunar/
+cnlunar_repo/
+dev/
