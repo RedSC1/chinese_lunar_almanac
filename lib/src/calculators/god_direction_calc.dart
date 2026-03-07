@@ -178,13 +178,23 @@ class GodDirection {
   }
 
   /// 获取所有方位的综合描述
-  static Map<String, CompassDirection> getAll(TianGan dayGan) {
+  static Map<String, CompassDirection> getAll(TianGan gan) {
     return {
-      '喜神': getXiShen(dayGan),
-      '福神': getFuShen(dayGan),
-      '财神': getCaiShen(dayGan),
-      '阳贵': getYangGui(dayGan),
-      '阴贵': getYinGui(dayGan),
+      '喜神': getXiShen(gan),
+      '福神': getFuShen(gan),
+      '财神': getCaiShen(gan),
+      '阳贵': getYangGui(gan),
+      '阴贵': getYinGui(gan),
     };
+  }
+
+  /// 获取每日吉神方位 (基于日天干)
+  static Map<String, CompassDirection> getDailyDirections(TianGan dayGan) {
+    return getAll(dayGan);
+  }
+
+  /// 获取时辰吉神方位 (基于时天干)
+  static Map<String, CompassDirection> getHourlyDirections(TianGan hourGan) {
+    return getAll(hourGan);
   }
 }

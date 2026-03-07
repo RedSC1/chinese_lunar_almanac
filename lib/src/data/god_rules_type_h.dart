@@ -210,25 +210,38 @@ class TypeHGodRules {
     // 19. 土王用事
     if (isTuWangYongShi) activeGods.add(AlmanacGod.tu_wang_yong_shi.index);
 
-    // 20. 岁薄 L1001
-    if (lunarMonth == 4 && (dayGanZhiIndex == 54 || dayGanZhiIndex == 42))
+    // 20. 岁薄 L1001 (基于节气月，而非农历月。四月=巳月=3, 十月=亥月=9)
+    if (monthIndex == 3 && (dayGanZhiIndex == 54 || dayGanZhiIndex == 42))
       activeGods.add(AlmanacGod.sui_bao.index);
-    if (lunarMonth == 10 && (dayGanZhiIndex == 48 || dayGanZhiIndex == 24))
+    if (monthIndex == 9 && (dayGanZhiIndex == 48 || dayGanZhiIndex == 24))
       activeGods.add(AlmanacGod.sui_bao.index);
 
-    // 21. 逐阵 L1002
-    if (lunarMonth == 6 && (dayGanZhiIndex == 54 || dayGanZhiIndex == 42))
+    // 21. 逐阵 L1002 (基于节气月。六月=未月=5, 十二月=丑月=11)
+    if (monthIndex == 5 && (dayGanZhiIndex == 54 || dayGanZhiIndex == 42))
       activeGods.add(AlmanacGod.zhu_zhen.index);
-    if (lunarMonth == 12 && (dayGanZhiIndex == 48 || dayGanZhiIndex == 24))
+    if (monthIndex == 11 && (dayGanZhiIndex == 48 || dayGanZhiIndex == 24))
       activeGods.add(AlmanacGod.zhu_zhen.index);
 
-    // 22. 阴阳交破 L1003
-    if (lunarMonth == 10 && dayGanZhiIndex == 53)
+    // 22. 阴阳交破 L1003 (基于《堪舆经》: 四月(巳/3)癸亥(59), 十月(亥/9)丁巳(53))
+    if (monthIndex == 3 && dayGanZhiIndex == 59)
+      activeGods.add(AlmanacGod.yin_yang_jiao_po.index);
+    if (monthIndex == 9 && dayGanZhiIndex == 53)
       activeGods.add(AlmanacGod.yin_yang_jiao_po.index);
 
     // 23. 重日 L1011
     if (dayBranch == 5 || dayBranch == 11)
       activeGods.add(AlmanacGod.chong_ri.index);
+
+    // 24. 复日 L1012 (基于干支月)
+    const fuRiMap = '甲乙戊丙丁巳庚辛戊壬癸巳'; // index = monthIndex (0=寅~11=丑)
+    if (fuRiMap.length > monthIndex) {
+      String targetChar = fuRiMap[monthIndex];
+      String dayStemStr = "甲乙丙丁戊己庚辛壬癸"[dayGanZhiIndex % 10];
+      String dayBranchStr = "子丑寅卯辰巳午未申酉戌亥"[dayBranch];
+      if (targetChar == dayStemStr || targetChar == dayBranchStr) {
+        activeGods.add(AlmanacGod.fu_ri.index);
+      }
+    }
 
     return activeGods;
   }

@@ -1,3 +1,5 @@
+import '../utils/fast_bitset.dart';
+
 // Generated file. Do not edit manually.
 
 enum AlmanacGod {
@@ -175,6 +177,17 @@ enum AlmanacGod {
 
   final String label;
   const AlmanacGod(this.label);
+
+  /// 吉神掩码: bit=1 表示该索引位的神煞是吉神，bit=0 表示凶神
+  /// 吉神: 71 个, 凶神: 100 个
+  static final angelMask = FastBitSet.fromChunks(AlmanacGod.values.length, [
+    0x0fc0142d,
+    0xba048086,
+    0xe4d580ff,
+    0x80a583c0,
+    0x861f1b85,
+    0x000003c9,
+  ]);
 
   static AlmanacGod? fromLabel(String label) {
     for (var value in values) {

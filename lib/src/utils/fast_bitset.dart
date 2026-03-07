@@ -92,6 +92,20 @@ class FastBitSet extends Object with IterableMixin<int> {
     return has(index);
   }
 
+  /// 检查当前集合是否包含 [other] 集合中的所有标志位
+  /// (位运算加速: O(N) 仅需几个整数比较)
+  bool containsAll(FastBitSet other) {
+    for (int i = 0; i < _chunks.length; i++) {
+      if (i < other._chunks.length) {
+        if ((_chunks[i] & other._chunks[i]) != other._chunks[i]) return false;
+      }
+    }
+    for (int i = _chunks.length; i < other._chunks.length; i++) {
+      if (other._chunks[i] != 0) return false;
+    }
+    return true;
+  }
+
   // ------------------------------------------------------------------------
   // 运算符重载
   // ------------------------------------------------------------------------
