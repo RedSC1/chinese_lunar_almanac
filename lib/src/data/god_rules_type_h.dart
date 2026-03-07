@@ -2,6 +2,7 @@
 // Type H god rules: Complex dependencies (Year, Lunar Date, 28 Stars, etc.)
 // Contains 23 rules.
 
+import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
 import '../utils/fast_bitset.dart';
 import 'gods.dart';
 
@@ -49,7 +50,7 @@ class TypeHGodRules {
     required int seasonIndex,
     required int monthSeasonTypeIndex, // 0:仲, 1:季, 2:孟
     required String day28Star,
-    required DateTime gregorianDate,
+    required AstroDateTime date,
     required bool isSiJue,
     required bool isSiLi,
     required bool isTuWangYongShi,
