@@ -26,3 +26,7 @@ verify_*.dart
 cnlunar/
 cnlunar_repo/
 dev/
+
+# Python cache
+__pycache__/
+*.pyc

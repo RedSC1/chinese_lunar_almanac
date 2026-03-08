@@ -55,6 +55,12 @@ class FastBitSet extends Object with IterableMixin<int> {
     }
   }
 
+  void addAll(Iterable<int> indices) {
+    for (final i in indices) {
+      add(i);
+    }
+  }
+
   /// 支持像数组一样针对某一位进行赋值
   /// 示例：`bitSet[42] = true;` 或 `bitSet[42] = false;`
   void operator []=(int index, bool value) {
@@ -72,6 +78,12 @@ class FastBitSet extends Object with IterableMixin<int> {
     final bitOffset = index % _bitsPerChunk;
     if (chunkIndex < _chunks.length) {
       _chunks[chunkIndex] &= ~(1 << bitOffset);
+    }
+  }
+
+  void removeAll(Iterable<int> indices) {
+    for (final i in indices) {
+      remove(i);
     }
   }
 
