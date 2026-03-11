@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:chinese_lunar_almanac/src/models/compass_direction.dart';
 import 'package:chinese_lunar_almanac/src/models/sanyuan_jiuyun.dart';
 import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
