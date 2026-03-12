@@ -5,6 +5,7 @@ import '../calculators/chong_sha_calc.dart';
 import '../calculators/tai_shen_calc.dart';
 import '../calculators/peng_zu_calc.dart';
 import '../calculators/god_direction_calc.dart';
+import '../calculators/twelve_gods_calc.dart';
 import '../data/yi_ji/virtual_god_defs.dart';
 import '../data/gods.dart';
 import '../utils/fast_bitset.dart';
@@ -22,6 +23,9 @@ class DayShenSha {
 
   /// 十二建除
   final JianChu jianChu;
+
+  /// 十二值神 (青龙、明堂等日级黄道/黑道)
+  final DailyTwelveGods dayTwelveGod;
 
   /// 胎神占方
   final String taiShen;
@@ -65,6 +69,7 @@ class DayShenSha {
     required this.pengZu,
     required this.chongSha,
     required this.jianChu,
+    required this.dayTwelveGod,
     required this.taiShen,
     required this.godDirections,
     required this.activeRealGods,
@@ -95,6 +100,12 @@ class DayShenSha {
     final jianchuIndex = (info.ganZhi.zhi.index - monthBranchIndex + 12) % 12;
     final jianChu = JianChu.values[jianchuIndex];
 
+    // 十二值神 (日级黄黑道)
+    final dayTwelveGod = DailyTwelveGods.calculate(
+      sxwnl.DiZhi.values[monthBranchIndex],
+      info.ganZhi.zhi,
+    );
+
     // 实神本尊碰撞
     final activeRealGods = GodCalculator.calculateAll(
       monthIndex: monthBranchIndex,
@@ -123,6 +134,7 @@ class DayShenSha {
       pengZu: pengZu,
       chongSha: chongSha,
       jianChu: jianChu,
+      dayTwelveGod: dayTwelveGod,
       taiShen: taiShen.toString(), // 确保返回 String
       godDirections: godDirs,
       activeRealGods: activeRealGods,

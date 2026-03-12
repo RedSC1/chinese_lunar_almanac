@@ -1,6 +1,6 @@
 import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
-import 'lib/src/models/huangli_day.dart';
-import 'lib/src/data/activities.dart';
+import '../lib/src/models/huangli_day.dart';
+import '../lib/src/data/activities.dart';
 
 void main() {
   // 1. 初始化数据
@@ -8,7 +8,7 @@ void main() {
   final tp = TimePack.createBySolarTime(clockTime: testTime, timezone: 8.0);
   final day = HuangliDay.from(tp);
 
-  print('=== 中华农历引擎 演示 Demo ===\n');
+  print('=== 农历演示 Demo ===\n');
 
   // 2. 基础信息访问
   print('【基础日期】');

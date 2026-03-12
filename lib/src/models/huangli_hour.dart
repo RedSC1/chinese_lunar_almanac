@@ -1,4 +1,5 @@
 import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
+import '../calculators/twelve_gods_calc.dart';
 
 /// 黄历时辰实体类 (HuangliHour)
 ///
@@ -10,11 +11,23 @@ class HuangliHour {
   /// 时辰的索引 (0: 子时, 1: 丑时 ... 11: 亥时)
   final int index;
 
-  HuangliHour({required this.ganZhi, required this.index});
+  /// 时辰对应的十二神煞 (如：青龙、明堂...)
+  final HourlyTwelveGods twelveGod;
+
+  HuangliHour({
+    required this.ganZhi,
+    required this.index,
+    required this.twelveGod,
+  });
+
+  /// 是否为黄道吉时
+  bool get isHuangDao => twelveGod.isHuangDao;
+
+  /// 时辰的神煞名称，例如 '青龙'
+  String get godName => twelveGod.name;
 
   /// 时辰名称，例如 '庚子'
   String get name => '${ganZhi.gan.label}${ganZhi.zhi.label}';
-
   /// 时辰的地支名，例如 '子'
   String get zhiName => ganZhi.zhi.label;
 

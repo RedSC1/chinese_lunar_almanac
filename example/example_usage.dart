@@ -12,7 +12,7 @@ void main() {
   final day = HuangliDay.from(tp);
 
   print('========================================');
-  print('        中华农历 (Chinese Almanac) Demo');
+  print('        Chinese Almanac Demo');
   print('========================================');
 
   // 时间显示
@@ -20,11 +20,10 @@ void main() {
   print('星期: ${["日", "一", "二", "三", "四", "五", "六"][day.weekday % 7]}');
   print('');
 
-  // 阴历信息 (注意: lunarDate 可能是 null 或动态类型，取决于底层实现)
+  // 阴历信息
   final lunar = day.lunarDate;
   print('【阴历/农历】');
   if (lunar != null) {
-     // 尝试打印一些基础信息，避免直接打印整个对象导致 crash
      try {
        print('农历汉字: ${lunar.fullCNString}');
      } catch (e) {
@@ -34,20 +33,37 @@ void main() {
   print('月相: ${day.moonPhase ?? "未知"}');
   print('');
 
-  // 命理干支 (八字)
-  print('【命理干支 (八字门面)】');
-  print('年柱: ${day.yearGanZhi} (${day.yearGanZhi.zhi.animal}年)');
-  print('月柱: ${day.monthGanZhi}');
-  print('日柱: ${day.ganZhi}');
+  // 命理干支 (八字) 与 纳音五行
+  print('【命理干支 (八字门面) & 纳音五行】');
+  print('年柱: ${day.yearGanZhi} [${day.yearGanZhi.naYin}] (${day.yearGanZhi.zhi.animal}年)');
+  print('月柱: ${day.monthGanZhi} [${day.monthGanZhi.naYin}]');
+  print('日柱: ${day.ganZhi} [${day.ganZhi.naYin}] (${day.ganZhi.naYinWuXing}命)');
   
-  print('本日时辰预览:');
+  print('');
+  print('【日级神煞 (黄黑道)】');
+  final dayGod = day.shenSha.dayTwelveGod;
+  print('当日值神: ${dayGod.name} (${dayGod.isHuangDao ? "黄道吉日" : "黑道凶日"})');
+  print('建除十二神: ${day.shenSha.jianChu.name}');
+  
+  print('');
+  print('【本日时辰详细预览 (含黄道吉时)】');
   final hours = day.dayHours;
-  final h = localNow.hour;
+  final currentHourIdx = (localNow.hour + 1) ~/ 2 % 12;
   
-  for (final hour in hours) {
-    bool isCurrent = hour.isCurrent(h);
+  for (int i = 0; i < hours.length; i++) {
+    final hour = hours[i];
+    final isCurrent = i == currentHourIdx;
     final prefix = isCurrent ? ' -> ' : '    ';
-    print('$prefix$hour');
+    
+    // 展示时辰干支、纳音、黄黑道神煞
+    final hourInfo = [
+      '$prefix${hour.zhiName}时(${hour.name})',
+      '[${hour.naYin}]',
+      '${hour.godName}(${hour.isHuangDao ? "吉" : "---"})',
+      hour.timeRange,
+    ].join(' ');
+    
+    print(hourInfo);
   }
   print('');
 

@@ -1,4 +1,5 @@
 import '../calculators/festival_calc.dart';
+import '../calculators/twelve_gods_calc.dart';
 import '../calculators/xiu_28_lunar_mansion_calc.dart';
 import '../utils/time_utils.dart';
 import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
@@ -16,7 +17,7 @@ import 'day_astro.dart';
 /// 黄历单日实体核心类 (HuangliDay)
 ///
 /// 封装了一天所有的历法、神煞、择吉等黄历详细数据。
-/// 本类作为 Façade (门面) 设计，基础历法信息直接暴露，
+/// 本类作为门面设计，基础历法信息直接暴露，
 /// 耗时的神煞、宜忌、玄空等专业领域数据通过 lazy getter (延迟计算) 提供。
 ///
 /// 使用方式：
@@ -119,7 +120,15 @@ class HuangliDay {
   /// 其中第一个元素(子时)的跨度为前一天的 23:00 到当天的 01:00。
   List<HuangliHour> get dayHours {
     final gzs = sxwnl.getDayHourGanZhi(ganZhi.gan);
-    return List.generate(12, (i) => HuangliHour(ganZhi: gzs[i], index: i));
+    return List.generate(12, (i) {
+      final hourZhi = sxwnl.DiZhi.values[i];
+      final twelveGod = HourlyTwelveGods.calculate(ganZhi.zhi, hourZhi);
+      return HuangliHour(
+        ganZhi: gzs[i],
+        index: i,
+        twelveGod: twelveGod,
+      );
+    });
   }
 
   HuangliDay._({
