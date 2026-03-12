@@ -1,6 +1,5 @@
 import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
-import '../lib/src/models/huangli_day.dart';
-import '../lib/src/data/activities.dart';
+import 'package:chinese_lunar_almanac/chinese_lunar_almanac.dart';
 
 void main() {
   // 1. 初始化数据
