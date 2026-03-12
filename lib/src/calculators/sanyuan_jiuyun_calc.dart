@@ -108,7 +108,7 @@ class SanYuanJiuYunCalc {
   /// * [true] (古代平气): 对齐老黄历。注意：古历模式由于底层数据特性（SSQ tb.zq），
   ///   仅具备天级精度，开启后 [exactJieQiTime] 将失效。
   ///
-  /// [isSpiltRatHour] - 子时换日策略：
+  /// 子时换日策略 (早晚子时) 通过 [timePack.splitRatHour] 配置：
   /// * [false] (标准模式): 23:00 强制执行换日，日柱切换为明日。
   /// * [true] (早晚子时): 23:00 - 00:00 视为“夜子时”，日柱依然保持为今日。
   ///
@@ -143,7 +143,7 @@ class SanYuanJiuYunCalc {
   /// * [true] (古代平气): 对齐老黄历。注意：古历模式由于底层数据特性（SSQ tb.zq），
   ///   仅具备天级精度，开启后 [exactJieQiTime] 将失效。
   ///
-  /// [isSpiltRatHour] - 子时换日策略：
+  /// 子时换日策略 (早晚子时) 通过 [timePack.splitRatHour] 配置：
   /// * [false] (标准模式): 23:00 强制执行换日，日柱切换为明日。
   /// * [true] (早晚子时): 23:00 - 00:00 视为“夜子时”，日柱依然保持为今日。
   ///

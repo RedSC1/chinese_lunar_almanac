@@ -46,7 +46,6 @@ void main() {
   });
 
   print('\n【吉神/凶神 (过滤示例)】');
-  // 只显示现代人比较熟悉的吉神
   final myInterests = day.shenSha.getAuspiciousGodsLabels();
   print('今日吉神: ${myInterests.take(5).join(" ")} ...等共 ${myInterests.length} 位');
 

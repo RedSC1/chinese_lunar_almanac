@@ -87,6 +87,11 @@ class DayShenSha {
     required bool isSiJue,
     required bool isSiLi,
   }) {
+    // 边界检查：确保月地支索引合法
+    if (monthBranchIndex < 0 || monthBranchIndex >= 12) {
+      throw ArgumentError.value(monthBranchIndex, 'monthBranchIndex', 'Must be between 0 and 11');
+    }
+
     // 彭祖百忌
     final pengZu = PengZu.getFullTaboo(info.ganZhi);
     // 冲煞

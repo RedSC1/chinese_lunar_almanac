@@ -13,10 +13,10 @@ class TimeUtils {
 
   /// 获取 AstroDateTime 对应的干支日整数索引
   ///
-  /// [isSpiltRatHour] 为 false 时，23:00 会被视为下一天。
-  static int getFixedJdDaySafe(AstroDateTime time, bool isSpiltRatHour) {
+  /// [isSplitRatHour] 为 false 时，23:00 会被视为下一天。
+  static int getFixedJdDaySafe(AstroDateTime time, bool isSplitRatHour) {
     AstroDateTime effectiveTime = time;
-    if (!isSpiltRatHour && time.hour >= 23) {
+    if (!isSplitRatHour && time.hour >= 23) {
       effectiveTime = time.add(const Duration(hours: 1));
     }
     return jdToFixedIndex(effectiveTime.toJ2000());
@@ -38,7 +38,7 @@ class TimeUtils {
     final double hourFraction = (localJd + 0.5) - (localJd + 0.5).floorToDouble();
     final double localHour = hourFraction * 24.0;
     
-    if (!timePack.splitRatHour && localHour >= 23.0) {
+    if (!timePack.splitRatHour && localHour >= 23.0 - 1e-9) {
       metaJd += 1.0 / 24.0; // 加一小时进入新的一天
     }
     

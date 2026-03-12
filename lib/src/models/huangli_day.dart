@@ -189,13 +189,13 @@ class HuangliDay {
     int? localSolarTermIndex;
 
     {
-      final tzOffsetHours = 8 - timePack.timezone;
+      final tzOffsetMinutes = ((8 - timePack.timezone) * 60).round();
       // 用户本地今天 00:00 (北京时间)
       final localMidnightBj = AstroDateTime(
         clockTime.year,
         clockTime.month,
         clockTime.day,
-      ).add(Duration(hours: tzOffsetHours.round()));
+      ).add(Duration(minutes: tzOffsetMinutes));
       // 用户本地明天 00:00 (北京时间)
       final localNextMidnightBj = localMidnightBj.add(
         const Duration(hours: 24),
@@ -209,7 +209,7 @@ class HuangliDay {
         localSolarTermIndex = nearestTerm.index;
         // 转回用户当地钟表时间
         localSolarTermTime = nearestTerm.dateTime.subtract(
-          Duration(hours: tzOffsetHours.round()),
+          Duration(minutes: tzOffsetMinutes),
         );
       }
     }
