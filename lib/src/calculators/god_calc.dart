@@ -153,3 +153,66 @@ class GodCalculator {
     return result;
   }
 }
+
+/// 针对 FastBitSet 的分类扩展，用于从计算出的神煞全集中提取“吉神”和“凶神”
+extension AlmanacGodExtension on FastBitSet {
+  /// 获取所有归属于“吉”类的活跃神煞名称
+  List<String> getAuspiciousGods({FastBitSet? mask}) {
+    final List<String> result = [];
+    var auspSets = this & AlmanacGod.angelMask;
+    if (mask != null) {
+      auspSets = auspSets & mask;
+    }
+    for (int godIndex in auspSets) {
+      if (godIndex < AlmanacGod.values.length) {
+        result.add(AlmanacGod.values[godIndex].label);
+      }
+    }
+    return result;
+  }
+
+  /// 获取所有归属于“凶”类的活跃神煞名称
+  List<String> getInauspiciousGods({FastBitSet? mask}) {
+    final List<String> result = [];
+    var inauspSets = this - AlmanacGod.angelMask;
+    if (mask != null) {
+      inauspSets = inauspSets & mask;
+    }
+    for (int godIndex in inauspSets) {
+      if (godIndex < AlmanacGod.values.length) {
+        result.add(AlmanacGod.values[godIndex].label);
+      }
+    }
+    return result;
+  }
+  
+  /// 获取吉神枚举对象列表
+  List<AlmanacGod> getAuspiciousGodEnums({FastBitSet? mask}) {
+    final List<AlmanacGod> result = [];
+    var auspSets = this & AlmanacGod.angelMask;
+    if (mask != null) {
+      auspSets = auspSets & mask;
+    }
+    for (int godIndex in auspSets) {
+      if (godIndex < AlmanacGod.values.length) {
+        result.add(AlmanacGod.values[godIndex]);
+      }
+    }
+    return result;
+  }
+
+  /// 获取凶神枚举对象列表
+  List<AlmanacGod> getInauspiciousGodEnums({FastBitSet? mask}) {
+    final List<AlmanacGod> result = [];
+    var inauspSets = this - AlmanacGod.angelMask;
+    if (mask != null) {
+      inauspSets = inauspSets & mask;
+    }
+    for (int godIndex in inauspSets) {
+      if (godIndex < AlmanacGod.values.length) {
+        result.add(AlmanacGod.values[godIndex]);
+      }
+    }
+    return result;
+  }
+}

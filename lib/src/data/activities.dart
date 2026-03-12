@@ -1,6 +1,6 @@
 // Generated file. Do not edit manually.
 
-import 'package:chinese_lunar_almanac/src/utils/fast_bitset.dart';
+import '../utils/fast_bitset.dart';
 
 enum AlmanacActivity {
   shang_ce('上册'),

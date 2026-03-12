@@ -25,7 +25,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-import 'package:chinese_lunar_almanac/src/utils/fast_bitset.dart';
+import '../utils/fast_bitset.dart';
 
 import '../data/yi_ji/yi_ji_data.dart';
 
@@ -68,6 +68,34 @@ class YiJiResult {
       ),
     );
     return indices.map((i) => AlmanacActivity.values[i].label).toList();
+  }
+
+  List<AlmanacActivity> toGoodEnumList({FastBitSet? mask}) {
+    FastBitSet res = goodThings;
+    if (mask != null) {
+      res = res & mask;
+    }
+    final indices = res.toList();
+    indices.sort(
+      (a, b) => AlmanacActivity.sortPriority[a].compareTo(
+        AlmanacActivity.sortPriority[b],
+      ),
+    );
+    return indices.map((i) => AlmanacActivity.values[i]).toList();
+  }
+
+  List<AlmanacActivity> toBadEnumList({FastBitSet? mask}) {
+    FastBitSet res = badThings;
+    if (mask != null) {
+      res = res & mask;
+    }
+    final indices = res.toList();
+    indices.sort(
+      (a, b) => AlmanacActivity.sortPriority[a].compareTo(
+        AlmanacActivity.sortPriority[b],
+      ),
+    );
+    return indices.map((i) => AlmanacActivity.values[i]).toList();
   }
 }
 
