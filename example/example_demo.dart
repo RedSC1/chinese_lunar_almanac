@@ -1,4 +1,3 @@
-import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
 import 'package:chinese_lunar_almanac/chinese_lunar_almanac.dart';
 
 void main() {

@@ -86,8 +86,9 @@ class TypeHGodRules {
         [],
         [],
       ][monthIndex];
-      if (branches.contains(dayBranch))
+      if (branches.contains(dayBranch)) {
         activeGods.add(AlmanacGod.tian_de.index);
+      }
     } else {
       final stems = const [-1, 6, 3, -1, 8, 7, -1, 0, 9, -1, 2, 1][monthIndex];
       if (dayStem == stems) activeGods.add(AlmanacGod.tian_de.index);
@@ -112,21 +113,25 @@ class TypeHGodRules {
 
     // 5. 凤凰日 L743: '危昴胃毕'[sn]
     final fhStar = const ['危', '昴', '胃', '毕'][seasonIndex];
-    if (day28Star.startsWith(fhStar))
+    if (day28Star.startsWith(fhStar)) {
       activeGods.add(AlmanacGod.feng_huang_ri.index);
+    }
 
     // 6. 麒麟日 L744: '井尾牛壁'[sn]
     final qlStar = const ['井', '尾', '牛', '壁'][seasonIndex];
-    if (day28Star.startsWith(qlStar))
+    if (day28Star.startsWith(qlStar)) {
       activeGods.add(AlmanacGod.qi_lin_ri.index);
+    }
 
     // 7. 五合 L753: 寅卯
-    if (dayBranch == 2 || dayBranch == 3)
+    if (dayBranch == 2 || dayBranch == 3) {
       activeGods.add(AlmanacGod.wu_he.index);
+    }
 
     // 8. 不将 L758: bujiang[men]
-    if (bujiang[monthIndex].contains(dayGanZhiIndex))
+    if (bujiang[monthIndex].contains(dayGanZhiIndex)) {
       activeGods.add(AlmanacGod.bu_jiang.index);
+    }
 
     // 9. 天喜 L777: '申酉戌亥子丑寅卯辰巳午未'[men] -> 匹配 dayBranch
     final txBranch = const [8, 9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7][monthIndex];
@@ -170,16 +175,20 @@ class TypeHGodRules {
       [4, 5, 6, 7],
       [3, 4, 5, 6],
     ];
-    if (bingJiBranches[monthIndex].contains(dayBranch))
+    if (bingJiBranches[monthIndex].contains(dayBranch)) {
       activeGods.add(AlmanacGod.bing_ji.index);
+    }
 
     // 12. 伏兵 L844: '丙甲壬庚'[yen % 4] -> 匹配 dayStem
     final fuBingStem = const [2, 0, 8, 6][yearBranch % 4];
-    if (dayStem == fuBingStem) activeGods.add(AlmanacGod.fu_bing.index);
+    if (dayStem == fuBingStem) {
+      activeGods.add(AlmanacGod.fu_bing.index);
+    }
 
     // 13. 月忌 L873: 5, 14, 23
-    if (lunarDay == 5 || lunarDay == 14 || lunarDay == 23)
+    if (lunarDay == 5 || lunarDay == 14 || lunarDay == 23) {
       activeGods.add(AlmanacGod.yue_ji.index);
+    }
 
     // 14. 杨公忌 L894
     for (final pair in yangGongJi) {
@@ -191,7 +200,9 @@ class TypeHGodRules {
 
     // 15. 大祸 L901: '丁乙癸辛'[yen % 4] -> 匹配 dayStem
     final daHuoStem = const [3, 1, 9, 7][yearBranch % 4];
-    if (dayStem == daHuoStem) activeGods.add(AlmanacGod.da_huo.index);
+    if (dayStem == daHuoStem) {
+      activeGods.add(AlmanacGod.da_huo.index);
+    }
 
     // 16. 三娘煞 L941: 3, 7, 13, 18, 22, 27
     if (lunarDay == 3 ||
@@ -204,33 +215,46 @@ class TypeHGodRules {
     }
 
     // 17. 四绝
-    if (isSiJue) activeGods.add(AlmanacGod.si_jue.index);
+    if (isSiJue) {
+      activeGods.add(AlmanacGod.si_jue.index);
+    }
     // 18. 四离
-    if (isSiLi) activeGods.add(AlmanacGod.si_li.index);
+    if (isSiLi) {
+      activeGods.add(AlmanacGod.si_li.index);
+    }
     // 19. 土王用事
-    if (isTuWangYongShi) activeGods.add(AlmanacGod.tu_wang_yong_shi.index);
+    if (isTuWangYongShi) {
+      activeGods.add(AlmanacGod.tu_wang_yong_shi.index);
+    }
 
     // 20. 岁薄 L1001 (基于节气月，而非农历月。四月=巳月=3, 十月=亥月=9)
-    if (monthIndex == 3 && (dayGanZhiIndex == 54 || dayGanZhiIndex == 42))
+    if (monthIndex == 3 && (dayGanZhiIndex == 54 || dayGanZhiIndex == 42)) {
       activeGods.add(AlmanacGod.sui_bao.index);
-    if (monthIndex == 9 && (dayGanZhiIndex == 48 || dayGanZhiIndex == 24))
+    }
+    if (monthIndex == 9 && (dayGanZhiIndex == 48 || dayGanZhiIndex == 24)) {
       activeGods.add(AlmanacGod.sui_bao.index);
+    }
 
     // 21. 逐阵 L1002 (基于节气月。六月=未月=5, 十二月=丑月=11)
-    if (monthIndex == 5 && (dayGanZhiIndex == 54 || dayGanZhiIndex == 42))
+    if (monthIndex == 5 && (dayGanZhiIndex == 54 || dayGanZhiIndex == 42)) {
       activeGods.add(AlmanacGod.zhu_zhen.index);
-    if (monthIndex == 11 && (dayGanZhiIndex == 48 || dayGanZhiIndex == 24))
+    }
+    if (monthIndex == 11 && (dayGanZhiIndex == 48 || dayGanZhiIndex == 24)) {
       activeGods.add(AlmanacGod.zhu_zhen.index);
+    }
 
     // 22. 阴阳交破 L1003 (基于《堪舆经》: 四月(巳/3)癸亥(59), 十月(亥/9)丁巳(53))
-    if (monthIndex == 3 && dayGanZhiIndex == 59)
+    if (monthIndex == 3 && dayGanZhiIndex == 59) {
       activeGods.add(AlmanacGod.yin_yang_jiao_po.index);
-    if (monthIndex == 9 && dayGanZhiIndex == 53)
+    }
+    if (monthIndex == 9 && dayGanZhiIndex == 53) {
       activeGods.add(AlmanacGod.yin_yang_jiao_po.index);
+    }
 
     // 23. 重日 L1011
-    if (dayBranch == 5 || dayBranch == 11)
+    if (dayBranch == 5 || dayBranch == 11) {
       activeGods.add(AlmanacGod.chong_ri.index);
+    }
 
     // 24. 复日 L1012 (基于干支月)
     const fuRiMap = '甲乙戊丙丁巳庚辛戊壬癸巳'; // index = monthIndex (0=寅~11=丑)

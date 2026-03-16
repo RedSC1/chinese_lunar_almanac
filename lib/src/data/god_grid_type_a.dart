@@ -11,7 +11,7 @@ import '../utils/fast_bitset.dart';
 class TypeAGrid {
   static const int godCount = 171;
 
-  /// grid[month][branch] → List<int> chunks for FastBitSet
+  /// grid[month][branch] → `List<int>` chunks for FastBitSet
   static const List<List<List<int>>> grid = [
     // men=0 (子月)
     [
