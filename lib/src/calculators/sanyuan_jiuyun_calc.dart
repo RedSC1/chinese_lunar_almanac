@@ -172,7 +172,8 @@ class SanYuanJiuYunCalc {
     bool exactJieQiTime = false,
   }) {
     final int fixedDay = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.splitRatHour);
-    final int branchIdx = ((fixedDay - 7) % 12 + 12) % 12;
+    // 2000-01-07 为甲子日，J2000 day index = 6，因此乙丑日的地支基准也应从 6 推导
+    final int branchIdx = ((fixedDay - 6) % 12 + 12) % 12;
     final int startIdx = (branchIdx % 3) * 3;
     int fixedIdx = startIdx;
     final int direction =
@@ -206,13 +207,13 @@ class SanYuanJiuYunCalc {
 
   ///获取距离最近的甲子日的偏移量
   ///
-  ///2000年1月7日 甲子日 j2000JD=7
+  ///2000年1月7日为甲子日，J2000 day index = 6
   static int _getNearestJiaZi(double j2000JD, {bool enableOffset = true}) {
     int fixedDay = (j2000JD + 0.5).floor();
     if (!enableOffset) {
       return fixedDay;
     }
-    int idx = ((fixedDay - 7) % 60 + 60) % 60;
+    int idx = ((fixedDay - 6) % 60 + 60) % 60;
     int offset = idx > 29 ? 60 - idx : -idx;
     return fixedDay + offset;
   }

@@ -3,7 +3,10 @@
 /// More dartdocs go here.
 library;
 
+export 'src/models/huangli_calendar.dart';
 export 'src/models/huangli_day.dart';
+export 'src/models/huangli_month.dart';
+export 'src/models/huangli_year.dart';
 export 'src/models/day_shen_sha.dart';
 export 'src/models/day_astro.dart';
 export 'src/models/huangli_hour.dart';

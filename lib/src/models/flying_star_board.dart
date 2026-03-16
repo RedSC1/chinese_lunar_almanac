@@ -1,11 +1,73 @@
 import '../calculators/sanyuan_jiuyun_calc.dart';
+import 'compass_direction.dart';
 import 'sanyuan_jiuyun.dart';
 import 'package:sxwnl_spa_dart/sxwnl_spa_dart.dart';
 
 class FlyingStarBoard {
-  List<FlyingStar> stars;
+  static const List<CompassDirection> palaceOrder = [
+    CompassDirection.southeast,
+    CompassDirection.south,
+    CompassDirection.southwest,
+    CompassDirection.east,
+    CompassDirection.center,
+    CompassDirection.west,
+    CompassDirection.northeast,
+    CompassDirection.north,
+    CompassDirection.northwest,
+  ];
 
-  FlyingStarBoard(this.stars);
+  final List<FlyingStar> stars;
+
+  FlyingStarBoard(List<FlyingStar> stars) : stars = List.unmodifiable(stars) {
+    if (stars.length != 9) {
+      throw ArgumentError.value(stars.length, 'stars', 'FlyingStarBoard must contain exactly 9 stars');
+    }
+  }
+
+  List<int> get numbers => stars.map((star) => star.number).toList(growable: false);
+
+  FlyingStar get centerStar => starAt(CompassDirection.center);
+
+  FlyingStar get southeastStar => starAt(CompassDirection.southeast);
+
+  FlyingStar get southStar => starAt(CompassDirection.south);
+
+  FlyingStar get southwestStar => starAt(CompassDirection.southwest);
+
+  FlyingStar get eastStar => starAt(CompassDirection.east);
+
+  FlyingStar get westStar => starAt(CompassDirection.west);
+
+  FlyingStar get northeastStar => starAt(CompassDirection.northeast);
+
+  FlyingStar get northStar => starAt(CompassDirection.north);
+
+  FlyingStar get northwestStar => starAt(CompassDirection.northwest);
+
+  FlyingStar starAt(CompassDirection direction) {
+    return stars[_indexOfDirection(direction)];
+  }
+
+  FlyingStar starByLuoShuNumber(int number) {
+    if (number < 1 || number > 9) {
+      throw ArgumentError.value(number, 'number', 'LuoShu number must be between 1 and 9');
+    }
+    return stars[SanYuanJiuYunCalc.numToIndexList[number - 1]];
+  }
+
+  Map<CompassDirection, FlyingStar> toDirectionMap() {
+    return Map.unmodifiable({
+      for (int i = 0; i < palaceOrder.length; i++) palaceOrder[i]: stars[i],
+    });
+  }
+
+  static int _indexOfDirection(CompassDirection direction) {
+    final index = palaceOrder.indexOf(direction);
+    if (index == -1) {
+      throw ArgumentError.value(direction, 'direction', 'Unsupported palace direction');
+    }
+    return index;
+  }
 }
 
 enum Boundary { solar, lunar }
