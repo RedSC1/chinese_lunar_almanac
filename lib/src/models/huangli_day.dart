@@ -264,6 +264,7 @@ class HuangliDay {
       isLeapMonth: displayInfo.lunarDate.isLeap,
       isLastLunarDay:
           displayInfo.lunarDate.day == displayInfo.lunarDate.monthSize,
+      weekday: displayInfo.solarDate.weekday,
       solarTerm: localSolarTerm,
     );
 

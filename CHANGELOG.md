@@ -1,3 +1,11 @@
+## 0.1.1
+
+- 新增母亲节、父亲节、感恩节等按"第 N 个星期 X"计算的节日
+- 修复 README 中依赖版本号错误（1.0.0 → 0.1.0）
+- 修复全部 dart analyze lint（花括号、注释 HTML 转义、多余 import）
+- 禁用 `constant_identifier_names` lint（拼音命名场景下可读性更好）
+- README 增加致谢章节（cnlunar、寿星万年历）与数据来源说明
+
 ## 0.1.0
 
 首个测试版本。

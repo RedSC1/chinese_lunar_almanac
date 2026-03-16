@@ -16,6 +16,7 @@ class FestivalCalculator {
     required int lunarDay,
     required bool isLeapMonth,
     required bool isLastLunarDay,
+    required int weekday,
     String? solarTerm,
   }) {
     final List<String> results = [];
@@ -67,6 +68,19 @@ class FestivalCalculator {
       final termFtv = CnlunarFestivals.solarTermHolidays[solarTerm];
       if (termFtv != null) {
         results.add(termFtv);
+      }
+    }
+
+    // 6. 按"第N个星期X"计算的节日 (母亲节、父亲节、感恩节等)
+    final weekHolidays = CnlunarFestivals.weekBasedHolidays[solarMonth];
+    if (weekHolidays != null) {
+      // solarDay 是本月第几天，weekday 是星期几 (1=周一, 7=周日)
+      // 计算当天是本月第几个该星期几: (solarDay - 1) ~/ 7 + 1
+      final nthWeekday = (solarDay - 1) ~/ 7 + 1;
+      for (final (nth, dow, name) in weekHolidays) {
+        if (nthWeekday == nth && weekday == dow) {
+          results.add(name);
+        }
       }
     }
 
