@@ -28,7 +28,7 @@
 
 ```yaml
 dependencies:
-  chinese_lunar_almanac: ^0.1.3
+  chinese_lunar_almanac: ^0.1.4
 ```
 
 ```dart
