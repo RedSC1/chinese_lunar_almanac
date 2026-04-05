@@ -1,6 +1,6 @@
 name: chinese_lunar_almanac
 description: A pure Dart Chinese traditional almanac (Huangli) library with GanZhi, solar terms, flying stars, lunar mansions, and Yi/Ji.
-version: 0.1.1
+version: 0.1.2
 repository: https://github.com/RedSC1/chinese_lunar_almanac
 topics:
   - chinese-calendar
@@ -13,7 +13,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  sxwnl_spa_dart: ^0.15.1
+  sxwnl_spa_dart: ^0.18.1
   # path: ^1.9.0
 
 dev_dependencies:
