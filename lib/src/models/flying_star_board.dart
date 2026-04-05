@@ -75,14 +75,14 @@ enum Boundary { solar, lunar }
 class NineStarBoard {
   DayFlyingStarMethod method;
   bool useHistoricalSolarTerms;
-  bool isSplitRatHour;
+  RatHourMode ratHourMode;
   bool exactJieQiTime;
   Boundary boundary;
   NineStarBoard({
     this.method = DayFlyingStarMethod.consecutive,
     this.boundary = Boundary.solar,
     this.useHistoricalSolarTerms = false,
-    this.isSplitRatHour = false,
+    this.ratHourMode = RatHourMode.noSplit,
     this.exactJieQiTime = false,
   });
   static List<FlyingStar> createNineStarBoard(int index, bool direction) {
@@ -98,7 +98,7 @@ class NineStarBoard {
 
   int _getSolarYear(AstroDateTime time) {
     AstroDateTime fixedAstroTime = time;
-    if (!isSplitRatHour && time.hour >= 23) {
+    if (ratHourMode == RatHourMode.noSplit && time.hour >= 23) {
       fixedAstroTime = time.add(const Duration(hours: 1));
     }
     double lc;
@@ -129,7 +129,7 @@ class NineStarBoard {
 
     // 全局统一的时间修正（提到最前面）
     AstroDateTime fixedAstroTime = time;
-    if (!isSplitRatHour && time.hour >= 23) {
+    if (ratHourMode == RatHourMode.noSplit && time.hour >= 23) {
       fixedAstroTime = time.add(const Duration(hours: 1));
     }
 
@@ -158,7 +158,7 @@ class NineStarBoard {
         final JieQiResult jq = getPrevJie(time)!; // 精确模式依然用真实物理时间
         termIndex = jq.index;
       } else {
-        double r = isSplitRatHour ? 0 : 1 / 24;
+        double r = ratHourMode != RatHourMode.noSplit ? 0 : 1 / 24;
         // 这里的 fixedAstroTime 已经是最准的了
         final double fixedJDTime =
             (fixedAstroTime.toJ2000() + 0.5).floorToDouble() + 0.5 - r - 1e-10;
@@ -172,7 +172,7 @@ class NineStarBoard {
   }
 
   int _getLunarYear(AstroDateTime time) {
-    return LunarDate.fromSolar(time, splitRatHour: isSplitRatHour).lunarYear;
+    return LunarDate.fromSolar(time, ratHourMode: ratHourMode).lunarYear;
   }
 
   FlyingStarBoard getYearBoard(AstroDateTime time) {
@@ -200,7 +200,7 @@ class NineStarBoard {
     final yearIdx = ((year - 1984) % 12 + 12) % 12;
     final branchIdx = boundary == Boundary.solar
         ? _getSolarMonthIdx(time)
-        : (LunarDate.fromSolar(time, splitRatHour: isSplitRatHour).month + 1) %
+        : (LunarDate.fromSolar(time, ratHourMode: ratHourMode).month + 1) %
               12;
     final starIdx = SanYuanJiuYunCalc.getMonthStar(
       DiZhi.values[yearIdx],

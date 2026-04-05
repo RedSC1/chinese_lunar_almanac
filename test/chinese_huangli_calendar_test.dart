@@ -46,7 +46,7 @@ void main() {
     final tp = TimePack.createBySolarTime(
       clockTime: AstroDateTime(2026, 3, 16, 10, 0, 0),
       timezone: 8.0,
-      splitByRatHour: false,
+      ratHourMode: RatHourMode.noSplit,
     );
     final day = HuangliDay.from(tp);
 

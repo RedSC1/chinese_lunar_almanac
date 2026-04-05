@@ -1,3 +1,5 @@
+import 'package:chinese_lunar_almanac/chinese_lunar_almanac.dart';
+
 import 'huangli_month.dart';
 
 /// 黄历年历对象 (按公历年组织)
@@ -12,7 +14,7 @@ import 'huangli_month.dart';
 class HuangliYear {
   final int year;
   final double timezone;
-  final bool splitRatHour;
+  final RatHourMode ratHourMode;
   final bool exactJieQiTime;
 
   late final List<HuangliMonth> months = _buildMonths();
@@ -20,20 +22,20 @@ class HuangliYear {
   HuangliYear._({
     required this.year,
     required this.timezone,
-    required this.splitRatHour,
+    required this.ratHourMode,
     required this.exactJieQiTime,
   });
 
   factory HuangliYear.from({
     required int year,
     double timezone = 8.0,
-    bool splitRatHour = false,
+    RatHourMode ratHourMode = RatHourMode.noSplit,
     bool exactJieQiTime = false,
   }) {
     return HuangliYear._(
       year: year,
       timezone: timezone,
-      splitRatHour: splitRatHour,
+      ratHourMode: ratHourMode,
       exactJieQiTime: exactJieQiTime,
     );
   }
@@ -44,7 +46,7 @@ class HuangliYear {
         year: year,
         month: i + 1,
         timezone: timezone,
-        splitRatHour: splitRatHour,
+        ratHourMode: ratHourMode,
         exactJieQiTime: exactJieQiTime,
       );
     });

@@ -15,7 +15,7 @@ class HuangliMonth {
   final int year;
   final int month;
   final double timezone;
-  final bool splitRatHour;
+  final RatHourMode ratHourMode;
   final bool exactJieQiTime;
 
   late final List<HuangliDay> days = _buildDays();
@@ -24,7 +24,7 @@ class HuangliMonth {
     required this.year,
     required this.month,
     required this.timezone,
-    required this.splitRatHour,
+    required this.ratHourMode,
     required this.exactJieQiTime,
   });
 
@@ -32,7 +32,7 @@ class HuangliMonth {
     required int year,
     required int month,
     double timezone = 8.0,
-    bool splitRatHour = false,
+    RatHourMode ratHourMode = RatHourMode.noSplit,
     bool exactJieQiTime = false,
   }) {
     if (month < 1 || month > 12) {
@@ -42,7 +42,7 @@ class HuangliMonth {
       year: year,
       month: month,
       timezone: timezone,
-      splitRatHour: splitRatHour,
+      ratHourMode: ratHourMode,
       exactJieQiTime: exactJieQiTime,
     );
   }
@@ -53,7 +53,7 @@ class HuangliMonth {
       final tp = TimePack.createBySolarTime(
         clockTime: AstroDateTime(year, month, i + 1, 12),
         timezone: timezone,
-        splitByRatHour: splitRatHour,
+        ratHourMode: ratHourMode,
       );
       return HuangliDay.from(tp, exactJieQiTime: exactJieQiTime);
     });

@@ -7,7 +7,7 @@ void main() {
     final tp = TimePack.createBySolarTime(
       clockTime: time,
       timezone: 8.0,
-      splitByRatHour: false,
+      ratHourMode: RatHourMode.noSplit,
     );
 
     test('matches year board for 2026-03-16 in default solar mode', () {

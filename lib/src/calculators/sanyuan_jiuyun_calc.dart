@@ -171,7 +171,7 @@ class SanYuanJiuYunCalc {
     bool useHistoricalSolarTerms = false,
     bool exactJieQiTime = false,
   }) {
-    final int fixedDay = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.splitRatHour);
+    final int fixedDay = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
     // 2000-01-07 为甲子日，J2000 day index = 6，因此乙丑日的地支基准也应从 6 推导
     final int branchIdx = ((fixedDay - 6) % 12 + 12) % 12;
     final int startIdx = (branchIdx % 3) * 3;
@@ -232,7 +232,7 @@ class SanYuanJiuYunCalc {
     int jzDay;
     bool direction = true;
     (jzDay, direction) = _preciseDay(timePack, enableOffset, exactJieQiTime);
-    final int currentDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.splitRatHour);
+    final int currentDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
     return _getStarIdx(currentDayIdx.toDouble(), jzDay, direction);
   }
 
@@ -258,7 +258,7 @@ class SanYuanJiuYunCalc {
     int xzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(xzBj, timePack);
     int prevDzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(prevDzBj, timePack);
     
-    int currentLocalDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.splitRatHour);
+    int currentLocalDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
 
     bool isPassedDz = exactJieQiTime ? currentBjJd >= dzBj : currentLocalDayIdx >= dzLocalDayIdx;
     bool isPassedXz = exactJieQiTime ? currentBjJd >= xzBj : currentLocalDayIdx >= xzLocalDayIdx;
@@ -278,7 +278,7 @@ class SanYuanJiuYunCalc {
     int jzDay;
     bool direction = true;
     (jzDay, direction) = _historicalDay(timePack, enableOffset);
-    final int currentDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.splitRatHour);
+    final int currentDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
     return _getStarIdx(currentDayIdx.toDouble(), jzDay, direction);
   }
 
@@ -298,7 +298,7 @@ class SanYuanJiuYunCalc {
     int xzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(xzBj, timePack);
     int prevDzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(prevDzBj, timePack);
     
-    int currentLocalDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.splitRatHour);
+    int currentLocalDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
 
     int jzDay;
     bool direction = true;

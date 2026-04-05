@@ -38,7 +38,7 @@ class TimeUtils {
     final double hourFraction = (localJd + 0.5) - (localJd + 0.5).floorToDouble();
     final double localHour = hourFraction * 24.0;
     
-    if (!timePack.splitRatHour && localHour >= 23.0 - 1e-9) {
+    if (timePack.ratHourMode == RatHourMode.noSplit && localHour >= 23.0 - 1e-9) {
       metaJd += 1.0 / 24.0; // 加一小时进入新的一天
     }
     
@@ -56,7 +56,7 @@ extension TimePackMeta on TimePack {
   ///
   /// 用途：节气月柱判断、廿八宿、日柱等所有"命理时间"相关的计算，应统一使用此字段。
   AstroDateTime get metaTime {
-    if (!splitRatHour && virtualTime.hour >= 23) {
+    if (ratHourMode == RatHourMode.noSplit && virtualTime.hour >= 23) {
       return virtualTime.add(const Duration(hours: 1));
     }
     return virtualTime;

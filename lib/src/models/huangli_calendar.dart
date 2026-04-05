@@ -15,12 +15,12 @@ import 'huangli_year.dart';
 /// ```
 class HuangliCalendar {
   final double timezone;
-  final bool splitRatHour;
+  final RatHourMode ratHourMode;
   final bool exactJieQiTime;
 
   const HuangliCalendar({
     this.timezone = 8.0,
-    this.splitRatHour = false,
+    this.ratHourMode = RatHourMode.noSplit,
     this.exactJieQiTime = false,
   });
 
@@ -29,7 +29,7 @@ class HuangliCalendar {
     final tp = TimePack.createBySolarTime(
       clockTime: AstroDateTime(year, month, day, hour),
       timezone: timezone,
-      splitByRatHour: splitRatHour,
+      ratHourMode: ratHourMode,
     );
     return HuangliDay.from(tp, exactJieQiTime: exactJieQiTime);
   }
@@ -40,7 +40,7 @@ class HuangliCalendar {
       year: year,
       month: month,
       timezone: timezone,
-      splitRatHour: splitRatHour,
+      ratHourMode: ratHourMode,
       exactJieQiTime: exactJieQiTime,
     );
   }
@@ -50,7 +50,7 @@ class HuangliCalendar {
     return HuangliYear.from(
       year: year,
       timezone: timezone,
-      splitRatHour: splitRatHour,
+      ratHourMode: ratHourMode,
       exactJieQiTime: exactJieQiTime,
     );
   }
