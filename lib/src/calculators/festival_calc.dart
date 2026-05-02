@@ -22,14 +22,16 @@ class FestivalCalculator {
     final List<String> results = [];
 
     // 1. 公历固定日期节日 (legalSolarHolidays)
-    final solarLegal = CnlunarFestivals.legalSolarHolidays[solarMonth]?[solarDay];
+    final solarLegal =
+        CnlunarFestivals.legalSolarHolidays[solarMonth]?[solarDay];
     if (solarLegal != null) {
       results.add(solarLegal);
     }
 
     // 2. 农历固定日期节日 (legalLunarHolidays)
     if (!isLeapMonth) {
-      final lunarLegal = CnlunarFestivals.legalLunarHolidays[lunarMonth]?[lunarDay];
+      final lunarLegal =
+          CnlunarFestivals.legalLunarHolidays[lunarMonth]?[lunarDay];
       if (lunarLegal != null) {
         results.add(lunarLegal);
       }
@@ -37,7 +39,8 @@ class FestivalCalculator {
 
     // 3. 公历其他纪念日 (otherSolarHolidays)
     if (solarMonth >= 1 && solarMonth <= 12) {
-      final solarOther = CnlunarFestivals.otherSolarHolidays[solarMonth - 1][solarDay];
+      final solarOther =
+          CnlunarFestivals.otherSolarHolidays[solarMonth - 1][solarDay];
       if (solarOther != null) {
         // cnlunar 数据中有些节日用逗号分隔，拆分后加入
         results.addAll(solarOther.split(','));
@@ -48,13 +51,14 @@ class FestivalCalculator {
     if (!isLeapMonth) {
       if (lunarMonth >= 1 && lunarMonth <= 12) {
         String? lunarOther;
-        
+
         // 特殊处理除夕：如果今天是本月最后一天且是腊月（12月），
         // 即使是 29 号（小月），也要触发原本在 30 号的“除夕”。
         if (lunarMonth == 12 && isLastLunarDay) {
           lunarOther = CnlunarFestivals.otherLunarHolidays[11][30];
         } else {
-          lunarOther = CnlunarFestivals.otherLunarHolidays[lunarMonth - 1][lunarDay];
+          lunarOther =
+              CnlunarFestivals.otherLunarHolidays[lunarMonth - 1][lunarDay];
         }
 
         if (lunarOther != null) {

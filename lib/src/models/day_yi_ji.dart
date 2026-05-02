@@ -37,9 +37,7 @@ class DayYiJi {
     return _result.toBadEnumList(mask: mask);
   }
 
-  DayYiJi({
-    required YiJiResult result,
-  }) : _result = result;
+  DayYiJi({required YiJiResult result}) : _result = result;
 
   factory DayYiJi.calculate({
     required sxwnl.DayInfo info,

@@ -1,56 +1,77 @@
+## 0.1.5
+
+- Apply `dart format` across the package and remove an unnecessary
+  import in `lib/src/models/huangli_year.dart` to clear the remaining
+  static analysis warnings.
+- Reorganize the `example/` directory: rename `example_demo.dart` to
+  `chinese_lunar_almanac_example.dart` so the canonical example is
+  discoverable, and remove the empty placeholder file.
+- Rewrite the changelog in English to follow pub.dev conventions.
+
 ## 0.1.4
 
-- 升级 `sxwnl_spa_dart` 依赖到 `^0.18.4`
-- 同步底层 `LunarDate` 在公元前古历区间与公元后历史改历时期的农历归年修复
+- Bump `sxwnl_spa_dart` dependency to `^0.18.4`.
+- Pick up the underlying `LunarDate` fix that re-aligns lunar-year
+  attribution for both pre-Common-Era ancient calendars and the
+  historical calendar-reform window in the Common Era.
 
 ## 0.1.3
 
-- 升级 `sxwnl_spa_dart` 依赖到 `^0.18.3`
-- 同步底层 BCE 农历归年修复，确保公元前黄历相关农历解析与底层历法一致
+- Bump `sxwnl_spa_dart` dependency to `^0.18.3`.
+- Pick up the BCE lunar-year fix in the underlying calendar so that
+  pre-Common-Era almanac results stay consistent with the lunar engine.
 
 ## 0.1.2
 
-- 升级 sxwnl_spa_dart 依赖到 0.18.1
+- Bump `sxwnl_spa_dart` dependency to `0.18.1`.
 
 ## 0.1.1
 
-- 新增母亲节、父亲节、感恩节等按"第 N 个星期 X"计算的节日
-- 修复 README 中依赖版本号错误（1.0.0 → 0.1.0）
-- 修复全部 dart analyze lint（花括号、注释 HTML 转义、多余 import）
-- 禁用 `constant_identifier_names` lint（拼音命名场景下可读性更好）
-- README 增加致谢章节（cnlunar、寿星万年历）与数据来源说明
+- Add Mother's Day, Father's Day, Thanksgiving and other "Nth weekday
+  of the month" festivals.
+- Fix the dependency version in the README (`1.0.0` → `0.1.0`).
+- Clean up all `dart analyze` lints (braces, HTML escaping in comments,
+  redundant imports).
+- Disable the `constant_identifier_names` lint to keep pinyin-based
+  identifiers readable.
+- Add a credits section to the README acknowledging cnlunar and the
+  Shouxing perpetual calendar (寿星万年历) as data sources.
 
 ## 0.1.0
 
-首个测试版本。
+Initial preview release.
 
-### 核心功能
+### Core features
 
-- 公历 / 农历日期转换
-- 年柱、月柱、日柱、时柱干支与纳音五行
-- 二十四节气（精确时刻，时区感知）
-- 廿八星宿
-- 建除十二值日与十二值神（黄黑道）
-- 时辰干支与黄黑道吉凶判断
-- 彭祖百忌、冲煞信息
-- 节日识别（公历 / 农历 / 节气节日）
-- 月相（朔望）
-- 神煞推算与宜忌裁决引擎
+- Solar / lunar date conversion.
+- Year, month, day and hour pillars (GanZhi) with Nayin Five Elements.
+- Twenty-four solar terms with precise instants and timezone awareness.
+- The 28 lunar mansions.
+- Twelve "JianChu" day officers and the twelve day gods (Yellow / Black
+  Way).
+- Hour pillars with Yellow / Black Way auspicious-or-not classification.
+- Pengzu's Hundred Taboos and daily Chong-Sha clash information.
+- Festival detection across solar, lunar and solar-term calendars.
+- Moon phases (new / full).
+- Shen-Sha enumeration and a Yi / Ji (suitable / taboo) inference engine.
 
-### 九宫飞星
+### Nine Star Flying Palace boards
 
-- 年 / 月 / 日 / 时飞星盘
-- 地盘 / 山盘 / 向盘
-- 支持节气（solar）与农历（lunar）两种年月界限
-- 支持连茹 / 截路两种日盘排法
-- `FlyingStarBoard` 宫位访问器（方位 getter、洛书数查询、方向 map）
+- Year, month, day and hour boards.
+- Earth, Mountain and Facing layers.
+- Both solar-term and lunar-month boundary modes.
+- "Lian-Ru" and "Jie-Lu" arrangements for the day board.
+- `FlyingStarBoard` accessors for each palace (direction getters,
+  Luoshu lookup, direction map).
 
-### 统一入口
+### Unified entry points
 
-- 新增 `HuangliCalendar` 统一入口类，收口时区、早晚子时、精确节令等配置
-- 新增 `HuangliMonth`（按公历月批量生成黄历）
-- 新增 `HuangliYear`（按公历年批量生成黄历）
+- `HuangliCalendar` aggregates timezone, early/late Zi-hour and
+  precise solar-term configuration in one place.
+- `HuangliMonth` produces an entire solar month of almanac days.
+- `HuangliYear` produces an entire solar year.
 
-### Bug 修复
+### Bug fixes
 
-- 修复日飞星甲子锚点 off-by-one 错误（J2000 day index 7 → 6）
+- Fix the off-by-one anchor for the daily flying-star JiaZi base
+  (J2000 day index `7` → `6`).

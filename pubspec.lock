@@ -293,10 +293,10 @@ packages:
     dependency: "direct main"
     description:
       name: sxwnl_spa_dart
-      sha256: eef8356505a75e6d06febd8e12011129eb09161eb7e3cfaa6943d172267cd36d
+      sha256: "41f222eca2e7fa8dade4fe9ee2928913e4f57822abc7c9d2acf31512c176c2f3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.3"
+    version: "0.18.5"
   term_glyph:
     dependency: transitive
     description:

@@ -28,6 +28,7 @@ class HuangliHour {
 
   /// 时辰名称，例如 '庚子'
   String get name => '${ganZhi.gan.label}${ganZhi.zhi.label}';
+
   /// 时辰的地支名，例如 '子'
   String get zhiName => ganZhi.zhi.label;
 

@@ -14,21 +14,37 @@ void main() {
       expect(hours, hasLength(12));
       expect(
         hours.map((h) => h.zhiName),
-        orderedEquals(['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']),
+        orderedEquals([
+          '子',
+          '丑',
+          '寅',
+          '卯',
+          '辰',
+          '巳',
+          '午',
+          '未',
+          '申',
+          '酉',
+          '戌',
+          '亥',
+        ]),
       );
     });
 
-    test('represents zi hour as 23:00 to 01:00 and handles cross-day membership', () {
-      final zi = hours.first;
+    test(
+      'represents zi hour as 23:00 to 01:00 and handles cross-day membership',
+      () {
+        final zi = hours.first;
 
-      expect(zi.startHour, 23);
-      expect(zi.endHour, 1);
-      expect(zi.timeRange, '23:00 - 01:00');
-      expect(zi.isCurrent(23), isTrue);
-      expect(zi.isCurrent(0), isTrue);
-      expect(zi.isCurrent(1), isFalse);
-      expect(zi.isCurrent(22), isFalse);
-    });
+        expect(zi.startHour, 23);
+        expect(zi.endHour, 1);
+        expect(zi.timeRange, '23:00 - 01:00');
+        expect(zi.isCurrent(23), isTrue);
+        expect(zi.isCurrent(0), isTrue);
+        expect(zi.isCurrent(1), isFalse);
+        expect(zi.isCurrent(22), isFalse);
+      },
+    );
 
     test('covers every clock hour exactly once across 12 shichen', () {
       for (var hour = 0; hour < 24; hour++) {

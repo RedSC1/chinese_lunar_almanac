@@ -185,7 +185,7 @@ extension AlmanacGodExtension on FastBitSet {
     }
     return result;
   }
-  
+
   /// 获取吉神枚举对象列表
   List<AlmanacGod> getAuspiciousGodEnums({FastBitSet? mask}) {
     final List<AlmanacGod> result = [];

@@ -20,11 +20,16 @@ class FlyingStarBoard {
 
   FlyingStarBoard(List<FlyingStar> stars) : stars = List.unmodifiable(stars) {
     if (stars.length != 9) {
-      throw ArgumentError.value(stars.length, 'stars', 'FlyingStarBoard must contain exactly 9 stars');
+      throw ArgumentError.value(
+        stars.length,
+        'stars',
+        'FlyingStarBoard must contain exactly 9 stars',
+      );
     }
   }
 
-  List<int> get numbers => stars.map((star) => star.number).toList(growable: false);
+  List<int> get numbers =>
+      stars.map((star) => star.number).toList(growable: false);
 
   FlyingStar get centerStar => starAt(CompassDirection.center);
 
@@ -50,7 +55,11 @@ class FlyingStarBoard {
 
   FlyingStar starByLuoShuNumber(int number) {
     if (number < 1 || number > 9) {
-      throw ArgumentError.value(number, 'number', 'LuoShu number must be between 1 and 9');
+      throw ArgumentError.value(
+        number,
+        'number',
+        'LuoShu number must be between 1 and 9',
+      );
     }
     return stars[SanYuanJiuYunCalc.numToIndexList[number - 1]];
   }
@@ -64,7 +73,11 @@ class FlyingStarBoard {
   static int _indexOfDirection(CompassDirection direction) {
     final index = palaceOrder.indexOf(direction);
     if (index == -1) {
-      throw ArgumentError.value(direction, 'direction', 'Unsupported palace direction');
+      throw ArgumentError.value(
+        direction,
+        'direction',
+        'Unsupported palace direction',
+      );
     }
     return index;
   }
@@ -200,8 +213,7 @@ class NineStarBoard {
     final yearIdx = ((year - 1984) % 12 + 12) % 12;
     final branchIdx = boundary == Boundary.solar
         ? _getSolarMonthIdx(time)
-        : (LunarDate.fromSolar(time, ratHourMode: ratHourMode).month + 1) %
-              12;
+        : (LunarDate.fromSolar(time, ratHourMode: ratHourMode).month + 1) % 12;
     final starIdx = SanYuanJiuYunCalc.getMonthStar(
       DiZhi.values[yearIdx],
       DiZhi.values[branchIdx],

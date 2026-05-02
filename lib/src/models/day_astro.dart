@@ -37,11 +37,7 @@ class DayAstro {
       exactJieQiTime: exactJieQiTime,
     ).getDayBoard(timePack);
 
-    return DayAstro(
-      sanYuan: sy,
-      jiuYun: jy,
-      dailyFlyingStar: dayStarBoard,
-    );
+    return DayAstro(sanYuan: sy, jiuYun: jy, dailyFlyingStar: dayStarBoard);
   }
 
   @override

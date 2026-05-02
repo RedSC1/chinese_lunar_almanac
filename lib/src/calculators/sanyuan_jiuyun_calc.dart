@@ -171,7 +171,10 @@ class SanYuanJiuYunCalc {
     bool useHistoricalSolarTerms = false,
     bool exactJieQiTime = false,
   }) {
-    final int fixedDay = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
+    final int fixedDay = TimeUtils.getFixedJdDaySafe(
+      timePack.virtualTime,
+      timePack.ratHourMode != RatHourMode.noSplit,
+    );
     // 2000-01-07 为甲子日，J2000 day index = 6，因此乙丑日的地支基准也应从 6 推导
     final int branchIdx = ((fixedDay - 6) % 12 + 12) % 12;
     final int startIdx = (branchIdx % 3) * 3;
@@ -232,7 +235,10 @@ class SanYuanJiuYunCalc {
     int jzDay;
     bool direction = true;
     (jzDay, direction) = _preciseDay(timePack, enableOffset, exactJieQiTime);
-    final int currentDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
+    final int currentDayIdx = TimeUtils.getFixedJdDaySafe(
+      timePack.virtualTime,
+      timePack.ratHourMode != RatHourMode.noSplit,
+    );
     return _getStarIdx(currentDayIdx.toDouble(), jzDay, direction);
   }
 
@@ -243,33 +249,49 @@ class SanYuanJiuYunCalc {
   ) {
     int jzDay;
     bool direction = true;
-    
+
     // 物理时刻（北京天文台计算标准）
     final timeBj = timePack.bjClt;
     double dzBj = getSpecificJieQi(timeBj.year, 18);
     double xzBj = getSpecificJieQi(timeBj.year, 6);
     double prevDzBj = getSpecificJieQi(timeBj.year - 1, 18);
-    
+
     // 用户此刻物理瞬间
     double currentBjJd = timeBj.toJ2000();
-    
+
     // 获得各项节气在“用户本地排盘日历”中的完美截断干支日索引
     int dzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(dzBj, timePack);
     int xzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(xzBj, timePack);
     int prevDzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(prevDzBj, timePack);
-    
-    int currentLocalDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
 
-    bool isPassedDz = exactJieQiTime ? currentBjJd >= dzBj : currentLocalDayIdx >= dzLocalDayIdx;
-    bool isPassedXz = exactJieQiTime ? currentBjJd >= xzBj : currentLocalDayIdx >= xzLocalDayIdx;
+    int currentLocalDayIdx = TimeUtils.getFixedJdDaySafe(
+      timePack.virtualTime,
+      timePack.ratHourMode != RatHourMode.noSplit,
+    );
+
+    bool isPassedDz = exactJieQiTime
+        ? currentBjJd >= dzBj
+        : currentLocalDayIdx >= dzLocalDayIdx;
+    bool isPassedXz = exactJieQiTime
+        ? currentBjJd >= xzBj
+        : currentLocalDayIdx >= xzLocalDayIdx;
 
     if (isPassedDz) {
-      jzDay = _getNearestJiaZi(dzLocalDayIdx.toDouble(), enableOffset: enableOffset);
+      jzDay = _getNearestJiaZi(
+        dzLocalDayIdx.toDouble(),
+        enableOffset: enableOffset,
+      );
     } else if (isPassedXz) {
-      jzDay = _getNearestJiaZi(xzLocalDayIdx.toDouble(), enableOffset: enableOffset);
+      jzDay = _getNearestJiaZi(
+        xzLocalDayIdx.toDouble(),
+        enableOffset: enableOffset,
+      );
       direction = false;
     } else {
-      jzDay = _getNearestJiaZi(prevDzLocalDayIdx.toDouble(), enableOffset: enableOffset);
+      jzDay = _getNearestJiaZi(
+        prevDzLocalDayIdx.toDouble(),
+        enableOffset: enableOffset,
+      );
     }
     return (jzDay, direction);
   }
@@ -278,7 +300,10 @@ class SanYuanJiuYunCalc {
     int jzDay;
     bool direction = true;
     (jzDay, direction) = _historicalDay(timePack, enableOffset);
-    final int currentDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
+    final int currentDayIdx = TimeUtils.getFixedJdDaySafe(
+      timePack.virtualTime,
+      timePack.ratHourMode != RatHourMode.noSplit,
+    );
     return _getStarIdx(currentDayIdx.toDouble(), jzDay, direction);
   }
 
@@ -292,23 +317,35 @@ class SanYuanJiuYunCalc {
     final double dzBj = (tb.zq[24] + 0.5).floorToDouble();
     final double xzBj = (tb.zq[12] + 0.5).floorToDouble();
     final double prevDzBj = (tb.zq[0] + 0.5).floorToDouble();
-    
+
     // 将其也投射到本地命理日索引
     int dzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(dzBj, timePack);
     int xzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(xzBj, timePack);
     int prevDzLocalDayIdx = TimeUtils.getLocalMetaDayIdx(prevDzBj, timePack);
-    
-    int currentLocalDayIdx = TimeUtils.getFixedJdDaySafe(timePack.virtualTime, timePack.ratHourMode != RatHourMode.noSplit);
+
+    int currentLocalDayIdx = TimeUtils.getFixedJdDaySafe(
+      timePack.virtualTime,
+      timePack.ratHourMode != RatHourMode.noSplit,
+    );
 
     int jzDay;
     bool direction = true;
     if (dzLocalDayIdx <= currentLocalDayIdx) {
-      jzDay = _getNearestJiaZi(dzLocalDayIdx.toDouble(), enableOffset: enableOffset);
+      jzDay = _getNearestJiaZi(
+        dzLocalDayIdx.toDouble(),
+        enableOffset: enableOffset,
+      );
     } else if (xzLocalDayIdx <= currentLocalDayIdx) {
-      jzDay = _getNearestJiaZi(xzLocalDayIdx.toDouble(), enableOffset: enableOffset);
+      jzDay = _getNearestJiaZi(
+        xzLocalDayIdx.toDouble(),
+        enableOffset: enableOffset,
+      );
       direction = false;
     } else {
-      jzDay = _getNearestJiaZi(prevDzLocalDayIdx.toDouble(), enableOffset: enableOffset);
+      jzDay = _getNearestJiaZi(
+        prevDzLocalDayIdx.toDouble(),
+        enableOffset: enableOffset,
+      );
     }
     return (jzDay, direction);
   }
@@ -397,6 +434,5 @@ enum Mountain {
     }
   }
 }
-
 
 //写晕了哥们，真写晕了。。卧槽谁发明的这玩意。。。

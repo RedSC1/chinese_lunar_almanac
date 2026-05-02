@@ -54,7 +54,7 @@ class DayShenSha {
   List<String> getInauspiciousGodsLabels({FastBitSet? mask}) {
     return activeRealGods.getInauspiciousGods(mask: mask);
   }
-  
+
   /// 获取吉神枚举对象列表 (支持掩码过滤)
   List<AlmanacGod> getAuspiciousGodEnums({FastBitSet? mask}) {
     return activeRealGods.getAuspiciousGodEnums(mask: mask);
@@ -89,7 +89,11 @@ class DayShenSha {
   }) {
     // 边界检查：确保月地支索引合法
     if (monthBranchIndex < 0 || monthBranchIndex >= 12) {
-      throw ArgumentError.value(monthBranchIndex, 'monthBranchIndex', 'Must be between 0 and 11');
+      throw ArgumentError.value(
+        monthBranchIndex,
+        'monthBranchIndex',
+        'Must be between 0 and 11',
+      );
     }
 
     // 彭祖百忌

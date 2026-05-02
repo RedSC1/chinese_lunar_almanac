@@ -36,7 +36,11 @@ class HuangliMonth {
     bool exactJieQiTime = false,
   }) {
     if (month < 1 || month > 12) {
-      throw ArgumentError.value(month, 'month', 'Month must be between 1 and 12');
+      throw ArgumentError.value(
+        month,
+        'month',
+        'Month must be between 1 and 12',
+      );
     }
     return HuangliMonth._(
       year: year,

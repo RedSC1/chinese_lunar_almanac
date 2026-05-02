@@ -1,7 +1,5 @@
 import 'package:chinese_lunar_almanac/chinese_lunar_almanac.dart';
 
-import 'huangli_month.dart';
-
 /// 黄历年历对象 (按公历年组织)
 ///
 /// 内部按需构造 12 个 [HuangliMonth]，提供按年聚合的便捷访问。

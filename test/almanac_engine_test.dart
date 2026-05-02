@@ -28,11 +28,14 @@ void main() {
       expect(board.numbers, orderedEquals([4, 9, 2, 3, 5, 7, 8, 1, 6]));
     });
 
-    test('matches hour board for 2026-03-16 10:00 from validated software output', () {
-      final board = NineStarBoard(boundary: Boundary.solar).getHourBoard(tp);
+    test(
+      'matches hour board for 2026-03-16 10:00 from validated software output',
+      () {
+        final board = NineStarBoard(boundary: Boundary.solar).getHourBoard(tp);
 
-      expect(board.numbers, orderedEquals([8, 4, 6, 7, 9, 2, 3, 5, 1]));
-    });
+        expect(board.numbers, orderedEquals([8, 4, 6, 7, 9, 2, 3, 5, 1]));
+      },
+    );
   });
 
   group('FlyingStarBoard helpers', () {

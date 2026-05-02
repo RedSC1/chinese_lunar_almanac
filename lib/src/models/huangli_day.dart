@@ -123,11 +123,7 @@ class HuangliDay {
     return List.generate(12, (i) {
       final hourZhi = sxwnl.DiZhi.values[i];
       final twelveGod = HourlyTwelveGods.calculate(ganZhi.zhi, hourZhi);
-      return HuangliHour(
-        ganZhi: gzs[i],
-        index: i,
-        twelveGod: twelveGod,
-      );
+      return HuangliHour(ganZhi: gzs[i], index: i, twelveGod: twelveGod);
     });
   }
 

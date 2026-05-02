@@ -35,13 +35,15 @@ class TimeUtils {
     // 3. 应用子时换日规则
     double metaJd = localJd;
     // 提取本地小时数 (JD 的小数部分 + 0.5 即为 0点起到现在的比例)
-    final double hourFraction = (localJd + 0.5) - (localJd + 0.5).floorToDouble();
+    final double hourFraction =
+        (localJd + 0.5) - (localJd + 0.5).floorToDouble();
     final double localHour = hourFraction * 24.0;
-    
-    if (timePack.ratHourMode == RatHourMode.noSplit && localHour >= 23.0 - 1e-9) {
+
+    if (timePack.ratHourMode == RatHourMode.noSplit &&
+        localHour >= 23.0 - 1e-9) {
       metaJd += 1.0 / 24.0; // 加一小时进入新的一天
     }
-    
+
     return jdToFixedIndex(metaJd);
   }
 }
