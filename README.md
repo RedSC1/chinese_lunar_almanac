@@ -2,8 +2,6 @@
 
 纯 Dart 实现的中国传统黄历（老黄历）库，提供完整的日历信息、干支历法、九宫飞星、神煞宜忌等功能。
 
-> 📖 **[开发者笔记 (Developer's Note)](https://github.com/RedSC1/ziwei_core/blob/main/developer's_note.md)**：为什么写这个库？它的架构设计思路是什么？以及作者对神秘学、玄学的一点“理智”思考。
-
 天文历算内核基于 [寿星万年历](https://github.com/sxwnl/sxwnl)的[dart移植版本](https://github.com/RedSC1/sxwnl_spa_dart)，节日数据、神煞与宜忌规则移植自 [cnlunar](https://github.com/OPN48/cnlunar)。支持时区感知、早晚子时、精确节令等多种配置。
 
 ## 功能
